@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charshet="utf-8" />
+    <title>Set Up Wifi</title>
+    <style>
+      html{height: 100%;}
+      body{ background-image: linear-gradient(rgb(0, 3, 3),rgb(1, 6, 17));
+               background-repeat: no-repeat;
+         }
+      h1{
+        color: rgb(148, 250, 119);
+            display: flex;
+            font-family: cursive;
+            justify-content: center;
+            align-items: center;
+            margin-top: 150px;
+      }
+      .frame{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        }
+        input{width: 200px;
+          height: 40px;
+          border-radius: 5px;
+          font-family: cursive;
+          text-align: center;
+
+        }
+        label{font-family: cursive; font-size: 20px;margin: 10px;color: white;}
+        button{
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: cursive;
+
+      }
+      button:hover{
+        background-color: rgb(49, 156, 35);
+      }
+     
+    </style>
+  </head>
+  <body>
+
+    <h1>Time Configuration</h1>
+
+    <div class="frame" >
+      <label >Minutes</label>
+      <input type="number" id="m">
+    </div>
+    <div class="frame" >
+      <label >Seconds</label>
+      <input type="number" id="s">
+    </div>
+    <div class="frame" >
+      <button id='set'>SET TIME</button>
+    </div>
+
+    
+
+    <script>
+
+      var con = new XMLHttpRequest();
+      con.onreadystatechange = function() {
+         if (this.readyState == 4) {
+            if(this.responseText.length>1){
+              alert(this.responseText);
+            }   
+         }
+        };
+        var setBtn=document.getElementById('set');
+        setBtn.addEventListener('click', () => {
+            let m=document.getElementById('m').value;
+            let s=document.getElementById('s').value;
+            let data=m+':'+s;
+		      con.open('POST','/time-info');
+		      con.send(data);
+         });
+
+    </script>
+  </body>
+</html>

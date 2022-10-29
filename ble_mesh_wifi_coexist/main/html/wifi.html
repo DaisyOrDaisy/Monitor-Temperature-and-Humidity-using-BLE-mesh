@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charshet="utf-8" />
+    <title>Set Up Wifi</title>
+    <style>
+      html{height: 100%;}
+      body{ background-image: linear-gradient(rgb(5, 5, 5),rgb(1, 4, 10));
+               background-repeat: no-repeat;
+         }
+      h1{
+        color: rgb(103, 235, 70);
+            display: flex;
+            font-family: cursive;
+            justify-content: center;
+            align-items: center;
+            margin-top: 150px;
+      }
+      .frame{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+         }
+      button{
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 14px;
+        border-radius: 5px;
+        padding: 10px;
+        font-family: cursive;
+
+      }
+      button:hover{
+        background-color: rgb(49, 156, 35);
+      }
+      label{font-size: 25px; font-family: cursive;font-style:normal;color: white;}
+      input{width: 300px;height: 40px;border-radius: 5px;font-family: cursive;}
+    </style>
+  </head>
+  <body>
+
+    <h1>SET UP WIFI INFORMATION</h1>
+
+    <div class="frame" >
+      <label >SSID</label>
+      <input type="text" id="ssid">
+      <br/><br/>
+      <label>PASS</label>
+      <input type="text" id="pass">
+      <br/><br/>
+      <br/><br/>
+     
+    </div>
+
+    <button id='set'>SET WIFI INFO</button>
+
+    <script>
+
+      var con = new XMLHttpRequest();
+      con.onreadystatechange = function() {
+         if (this.readyState == 4) {
+            if(this.responseText.length>1){
+              alert(this.responseText);
+            }   
+         }
+        };
+        var setBtn=document.getElementById('set');
+        setBtn.addEventListener('click', () => {
+            let ssid=document.getElementById('ssid').value;
+            let pass=document.getElementById('pass').value;
+            let data=ssid+':'+pass;
+		      con.open('POST','/wifi-info');
+		      con.send(data);
+         });
+
+    </script>
+  </body>
+</html>
